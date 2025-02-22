@@ -3,6 +3,7 @@ const express = require("express");
 const FileUpload = require("../models/fileUpload");
 const connectDB = require("../DB/db_connection");
 const multer = require("multer");
+const router = express.Router();
 
 const app = express();
 
@@ -45,7 +46,7 @@ app.post("/uploads", fileUpload, async (req, res) => {
   }
 });
 
-app.get("/", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const city = await FileUpload.find();
     res.json(city);
@@ -55,6 +56,8 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`SERVER IS RUNNING ON ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`SERVER IS RUNNING ON ${PORT}`);
+// });
+
+module.exports = router;
