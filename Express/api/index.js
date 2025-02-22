@@ -46,7 +46,7 @@ app.post("/uploads", fileUpload, async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/city", async (req, res) => {
   try {
     const city = await FileUpload.find();
     res.json(city);
