@@ -1,28 +1,22 @@
+require("dotenv").config();
 const express = require("express");
-const cors = require("cors");
-const path = require("path");
-const connectdb = require("./Express/DB/db_connection");
-const cityRoute = require("./Express/api/index"); // Keeping your correct path
+const connectDB = require("./Express/DB/db_connection");
+const city = require("./Routes/city");
+
+const PORT = process.env.PORT || 2000;
 
 const app = express();
 
-// Connect to MongoDB
-connectdb();
-
-// Middleware
-app.use(express.json());
-app.use(cors());
-
-// Serve static files properly
-// app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
+connectDB();
 
 // Use Routes
-app.use("/api", cityRoute);
+app.use(city);
 
-// Default Route (Fixes "Cannot GET /" error)
 app.get("/", (req, res) => {
   res.send("Welcome to the FoodPanda Backend API!");
 });
+app.listen(PORT, () => {
+  console.log(`running on ${PORT}`);
+});
 
-// Export app for Vercel (No app.listen)
 module.exports = app;
